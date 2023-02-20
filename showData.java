@@ -10,9 +10,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class showData
+public class showData//æœ‰å‚è€ƒ
 {
-	// ÉèÖÃÓëÊı¾İ¿âÁ¬½ÓµÄ¶ÔÏó¡¢sqlÓï¾ä¡¢²éÑ¯µÄ½á¹û¼¯
+	// è®¾ç½®ä¸æ•°æ®åº“è¿æ¥çš„å¯¹è±¡ã€sqlè¯­å¥ã€æŸ¥è¯¢çš„ç»“æœé›†
 	static Connection ct = null;
 	PreparedStatement ps = null;
 	ResultSet rs = null;
@@ -21,10 +21,10 @@ public class showData
 	showData(String Sno)
 	{
 		String uri ="jdbc:mysql://localhost:3306/user?"+"user=root&password=123456&useSSL=true&serverTimezone=GMT&characterEncoding=utf-8";
-    	//Á¬½ÓÊı¾İ¿â£¨¼ÓÔØÇı¶¯¡¢½¨Á¢Á¬½Ó£©
+    	//è¿æ¥æ•°æ®åº“ï¼ˆåŠ è½½é©±åŠ¨ã€å»ºç«‹è¿æ¥ï¼‰
 		try 
 		{
-		   Class.forName("com.mysql.cj.jdbc.Driver");//¼ÓÔØJDBC-MySQLÇı¶¯³ÌĞò
+		   Class.forName("com.mysql.cj.jdbc.Driver");//åŠ è½½JDBC-MySQLé©±åŠ¨ç¨‹åº
 		}
 		catch(Exception e) {}
 		try 
@@ -36,7 +36,7 @@ public class showData
 			e.printStackTrace();
 		}
         
-		//·µ»ØµÄÊı¾İList
+		//è¿”å›çš„æ•°æ®List
         LinkedList<Stu_info> list =new LinkedList<>();
         try 
         {
@@ -62,18 +62,18 @@ public class showData
         	e1.printStackTrace();
         }
         
-      //1£¬Éè¶¨´°¿Ú
-        JFrame frame =new JFrame("´ÓmysqlÖĞ»ñÈ¡Êı¾İ²¢Õ¹Ê¾~");
+      //1ï¼Œè®¾å®šçª—å£
+        JFrame frame =new JFrame("ä»mysqlä¸­è·å–æ•°æ®å¹¶å±•ç¤º~");
         frame.setLocation(700,400);
         frame.setSize(500, 300);
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 
-        //2,Ìí¼Ótable
+        //2,æ·»åŠ table
         JTable table =null;
         String [] index={"Sno","Course","Grade","Credit"};
         Object [][] data=new Object[list.size()][index.length];
-        //3,ÏòdataÖĞÌí¼ÓÊı¾İ
+        //3,å‘dataä¸­æ·»åŠ æ•°æ®
         for (int i = 0; i < list.size(); i++) 
         {
             Stu_info stu_info =list.get(i);
@@ -83,36 +83,36 @@ public class showData
             data[i][3]=stu_info.getCredit();
 
         }
-        //4,´´½¨Ò»¸öÄ¬ÈÏµÄ±í¸ñÄ£ĞÍ
+        //4,åˆ›å»ºä¸€ä¸ªé»˜è®¤çš„è¡¨æ ¼æ¨¡å‹
         DefaultTableModel defaultModel = new DefaultTableModel(data, index);
         table=new JTable(defaultModel);
         table.setBackground(Color.cyan);
-        table.setPreferredScrollableViewportSize(new Dimension(100, 80));//JTableµÄ¸ß¶ÈºÍ¿í¶È°´ÕÕÉè¶¨
+        table.setPreferredScrollableViewportSize(new Dimension(100, 80));//JTableçš„é«˜åº¦å’Œå®½åº¦æŒ‰ç…§è®¾å®š
         table.setFillsViewportHeight(true);
 
-        //5£¬¸ø±í¸ñÉèÖÃ¹ö¶¯Ìõ
+        //5ï¼Œç»™è¡¨æ ¼è®¾ç½®æ»šåŠ¨æ¡
         JScrollPane jScrollPane = new JScrollPane();
         jScrollPane.setViewportView(table);
 
-        Font font = new Font("ËÎÌå", Font.BOLD, 13);
+        Font font = new Font("å®‹ä½“", Font.BOLD, 13);
 
-        //Ìí¼Óbutton
-        JButton button =new JButton("²éÑ¯");
+        //æ·»åŠ button
+        JButton button =new JButton("æŸ¥è¯¢");
         button.setBounds(50,10,50,30);
 
-        //Ìí¼Ólabel
-        JLabel label =new JLabel("µã»÷°´Å¥£¬²éÑ¯MySQLÊı¾İ¿âÖĞµÄÊı¾İ£º");
+        //æ·»åŠ label
+        JLabel label =new JLabel("ç‚¹å‡»æŒ‰é’®ï¼ŒæŸ¥è¯¢MySQLæ•°æ®åº“ä¸­çš„æ•°æ®ï¼š");
         label.setFont(font);
         label.setBounds(1,10,240,30);
 
-        //Í¨¹ıpanel×éºÏbutton£¬label
+        //é€šè¿‡panelç»„åˆbuttonï¼Œlabel
         JPanel panel =new JPanel();
         panel.setBackground(Color.GRAY);
         panel.setSize(200,100);
         panel.add(label);
         panel.add(button);
 
-        //6£¬Ìí¼Ó±í¸ñ¡¢¹ö¶¯Ìõµ½ÈİÆ÷ÖĞ
+        //6ï¼Œæ·»åŠ è¡¨æ ¼ã€æ»šåŠ¨æ¡åˆ°å®¹å™¨ä¸­
         frame.add(panel, BorderLayout.NORTH);
         frame.setVisible(true);
 
@@ -127,71 +127,23 @@ public class showData
             }
         });
 	}
-		//»ñÈ¡Êı¾İ¿âÖĞµÄÊı¾İ²¢ÒÔlist·µ»Ø
-	    /*public static List<Stu_info> getDbData()  
-	    {
-	    	
-	    	String uri ="jdbc:mysql://localhost:3306/user?"+"user=root&password=123456&useSSL=true&serverTimezone=GMT&characterEncoding=utf-8";
-	    	//Á¬½ÓÊı¾İ¿â£¨¼ÓÔØÇı¶¯¡¢½¨Á¢Á¬½Ó£©
-			try 
-			{
-			   Class.forName("com.mysql.cj.jdbc.Driver");//¼ÓÔØJDBC-MySQLÇı¶¯³ÌĞò
-			}
-			catch(Exception e) {}
-			try 
-			{
-				ct = DriverManager.getConnection(uri);
-			} 
-			catch (Exception e) 
-			{
-				e.printStackTrace();
-			}
-	        
-			//·µ»ØµÄÊı¾İList
-	        LinkedList<Stu_info> list =new LinkedList<>();
-	        try 
-	        {
-	        	PreparedStatement ps = ct.prepareStatement("select * from sc where Sno =? ");
-	    		ps.setString(1, Sno);
-	    		ResultSet rs =ps.executeQuery();
-	            
-	            while (rs.next())
-	            {
-	                Stu_info stu_info =new Stu_info();
-	                stu_info.setSno(rs.getString("Sno"));
-	                stu_info.setCourse(rs.getString("Course"));
-	                stu_info.setGrade(rs.getString("Grade"));
-	                stu_info.setCredit(rs.getString("Credit"));
-	                list.add(stu_info);
-	                System.out.println("id:"+rs.getObject("Sno")+" "+"Course:"+rs.getObject("course")+" "
-	                        +"Grade:"+rs.getString("Grade")+" "+"Credit:"+rs.getString("Credit"));
-	            }
-	            ct.close(); 
-	        }
-	        catch(Exception e1) 
-	        {
-	        	e1.printStackTrace();
-	        }
-	        return list;
-	    }*/
-	
-    
-    //´´½¨´°¿Ú£¬ÒÔÁĞ±íÕ¹Ê¾´ÓÊı¾İ¿âÖĞ»ñÈ¡µÄÊı¾İ
+
+    //åˆ›å»ºçª—å£ï¼Œä»¥åˆ—è¡¨å±•ç¤ºä»æ•°æ®åº“ä¸­è·å–çš„æ•°æ®
     public static void showFrame(List<Stu_info> list)
     {
 
-        //1£¬Éè¶¨´°¿Ú
-        JFrame frame =new JFrame("´ÓmysqlÖĞ»ñÈ¡Êı¾İ²¢Õ¹Ê¾~");
+        //1ï¼Œè®¾å®šçª—å£
+        JFrame frame =new JFrame("ä»mysqlä¸­è·å–æ•°æ®å¹¶å±•ç¤º~");
         frame.setLocation(700,400);
         frame.setSize(500, 300);
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 
-        //2,Ìí¼Ótable
+        //2,æ·»åŠ table
         JTable table =null;
         String [] index={"Sno","Course","Grade","Credit"};
         Object [][] data=new Object[list.size()][index.length];
-        //3,ÏòdataÖĞÌí¼ÓÊı¾İ
+        //3,å‘dataä¸­æ·»åŠ æ•°æ®
         for (int i = 0; i < list.size(); i++) 
         {
             Stu_info stu_info =list.get(i);
@@ -201,36 +153,36 @@ public class showData
             data[i][3]=stu_info.getCredit();
 
         }
-        //4,´´½¨Ò»¸öÄ¬ÈÏµÄ±í¸ñÄ£ĞÍ
+        //4,åˆ›å»ºä¸€ä¸ªé»˜è®¤çš„è¡¨æ ¼æ¨¡å‹
         DefaultTableModel defaultModel = new DefaultTableModel(data, index);
         table=new JTable(defaultModel);
         table.setBackground(Color.cyan);
-        table.setPreferredScrollableViewportSize(new Dimension(100, 80));//JTableµÄ¸ß¶ÈºÍ¿í¶È°´ÕÕÉè¶¨
+        table.setPreferredScrollableViewportSize(new Dimension(100, 80));//JTableçš„é«˜åº¦å’Œå®½åº¦æŒ‰ç…§è®¾å®š
         table.setFillsViewportHeight(true);
 
-        //5£¬¸ø±í¸ñÉèÖÃ¹ö¶¯Ìõ
+        //5ï¼Œç»™è¡¨æ ¼è®¾ç½®æ»šåŠ¨æ¡
         JScrollPane jScrollPane = new JScrollPane();
         jScrollPane.setViewportView(table);
 
-        Font font = new Font("ËÎÌå", Font.BOLD, 13);
+        Font font = new Font("å®‹ä½“", Font.BOLD, 13);
 
-        //Ìí¼Óbutton
-        JButton button =new JButton("²éÑ¯");
+        //æ·»åŠ button
+        JButton button =new JButton("æŸ¥è¯¢");
         button.setBounds(50,10,50,30);
 
-        //Ìí¼Ólabel
-        JLabel label =new JLabel("µã»÷°´Å¥£¬²éÑ¯MySQLÊı¾İ¿âÖĞµÄÊı¾İ£º");
+        //æ·»åŠ label
+        JLabel label =new JLabel("ç‚¹å‡»æŒ‰é’®ï¼ŒæŸ¥è¯¢MySQLæ•°æ®åº“ä¸­çš„æ•°æ®ï¼š");
         label.setFont(font);
         label.setBounds(1,10,240,30);
 
-        //Í¨¹ıpanel×éºÏbutton£¬label
+        //é€šè¿‡panelç»„åˆbuttonï¼Œlabel
         JPanel panel =new JPanel();
         panel.setBackground(Color.GRAY);
         panel.setSize(200,100);
         panel.add(label);
         panel.add(button);
 
-        //6£¬Ìí¼Ó±í¸ñ¡¢¹ö¶¯Ìõµ½ÈİÆ÷ÖĞ
+        //6ï¼Œæ·»åŠ è¡¨æ ¼ã€æ»šåŠ¨æ¡åˆ°å®¹å™¨ä¸­
         frame.add(panel, BorderLayout.NORTH);
         frame.setVisible(true);
 
@@ -250,7 +202,7 @@ public class showData
  
    /* public static void main(String[] args) throws SQLException, ClassNotFoundException 
     {
-//        getDbData();
+        getDbData();
         showFrame(getDbData( ));
     }*/
 }
