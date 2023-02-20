@@ -1,0 +1,166 @@
+package Model;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class Teacher extends JFrame implements ActionListener
+{	
+	// 定义组件
+	JPanel panel = null;
+	JLabel label, label2, label3, label4 = null;
+	JButton button, button2, button3, button4 = null;
+	JTextField jtf;
+	JTable jtable_1, jtable_2 = null;                                     
+	DefaultTableModel model_1, model_2 = null;                            
+	JScrollPane jsp_1, jsp_2 = null;                                  
+	
+	String tno; // 存储教师教工号
+	String tname; // 教师姓名
+	String tcourse;
+	
+	String sno; // 学生学号
+	String stu_name; //学生姓名
+	String grade; // 分数
+	
+	// 数据库驱动
+	String uri = "jdbc:mysql://localhost:3306/user?"+
+		    "user=root&password=123456&useSSL=true&serverTimezone=GMT&characterEncoding=utf-8";
+		
+	// 设置与数据库连接的对象、sql语句、查询的结果集
+	Connection ct = null;
+	PreparedStatement ps = null;
+	ResultSet rs = null;
+	
+	public static void main(String args[])
+	{
+		Teacher tea = new Teacher("张三", "123456");
+	}
+	
+	public Teacher(String name, String tno)
+	{			
+		this.tno = tno;//记录教工号
+		tname=name;//记录教工姓名
+		
+		// 连接数据库（加载驱动、建立连接）
+		try 
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");			
+		}
+		catch(Exception e) {}
+		try 
+		{
+			ct = DriverManager.getConnection(uri);
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+				
+		// 面板
+		panel = new JPanel();
+		panel.setBounds(125, 45, 650, 350);
+		panel.setBackground(Color.white);
+		
+		// 标签		
+		label = new JLabel("WELCOME");
+		label.setBounds(100, 10, 500, 200);
+		label2 = new JLabel(name);
+		label2.setBounds(35, 5, 125, 50);
+		label3 = new JLabel("欢迎登陆教育机构课程系统");
+		label3.setBounds(100, 60, 500, 200);
+		label4 = new JLabel(tno);
+		label4.setBounds(150, 5, 125, 50);
+				
+		label.setFont(new Font("Times New Roman", 1, 25));
+		label2.setFont(new Font("楷书", 1, 25));
+		label3.setFont(new Font("楷书", 1, 30));
+		label4.setFont(new Font("楷书", 1, 25));
+		
+		// 单击按钮
+		button = new JButton("我的信息");
+		button2 = new JButton("修改成绩");
+		button3 = new JButton("修改密码");
+		button4 = new JButton("退出系统");
+		
+		//添加一个开设课程的按钮
+		button.setFont(new Font("楷书", 1, 20));
+		button2.setFont(new Font("楷书", 1, 20));
+		button3.setFont(new Font("楷书", 1, 20));
+		button4.setFont(new Font("楷书", 1, 20));
+		
+		// 添加监听器
+		button.addActionListener(this);
+		button2.addActionListener(this);
+		button3.addActionListener(this);
+		button4.addActionListener(this);
+		
+		this.add(button);
+		button.setBounds(150, 400, 150, 50);
+		this.add(button2);
+		button2.setBounds(150, 500, 150, 50);
+		this.add(button3);
+		button3.setBounds(550, 400, 150, 50);
+		this.add(button4);
+		button4.setBounds(550, 500, 150, 50);
+		
+		// 文本框
+		jtf = new JTextField(10);		
+		
+		// 加入面板
+		this.add(label2);		
+		this.add(label4);
+		panel.add(label);
+		panel.add(label3);
+		
+		// 将面板加入窗口
+		this.add(panel);
+		
+		// 设置布局管理器（空布局）
+		this.setLayout(null);
+		
+		// 设置窗口标题
+		this.setTitle("教师页面");
+				
+		// 设置窗口大小
+		this.setSize(900, 700);
+							
+		// 设置窗口的起始位置
+		this.setLocationRelativeTo(null);//在屏幕中间显示(居中显示)
+				
+		// 设置当关闭窗口时，程序也结束
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				
+		// 显示窗口
+		this.setVisible(true);
+		this.setResizable(true);//表示生成的窗体可以自由改变大小					
+	}
+	
+	// 动作响应函数
+	public void actionPerformed(ActionEvent e)
+	{
+		if(e.getActionCommand() == "我的信息")
+		{					
+			teacherInfo teaInfo = new teacherInfo(tname,tno);
+		}
+		else if(e.getActionCommand() == "修改成绩")
+		{  
+			JTableTest	cg = new JTableTest();		
+		}
+		else if(e.getActionCommand() == "修改密码")
+		{			
+			changepassword_1 cp = new changepassword_1();
+		}
+		else if(e.getActionCommand() == "退出系统")
+		{
+			System.exit(0);
+		}
+	}
+}
+
+
